@@ -35,7 +35,33 @@ let timerForScrolling = null;
  * 
 */
 
-
+// Add class 'active' to section when near top of viewport
+function updateActiveSection(){
+	
+	//get cuurent location
+	let viewPortLocation = document.documentElement.scrollTop || document.body.scrollTop
+	
+	let activeIndex = 0;
+	let minmiumDifference = 10000;
+	
+	//first thing to do is to clear all sections' classes
+	for(let i=0; i< sectionsList.length; i++){
+		sectionsList[i].classList.remove('your-active-class');
+		myMenu.children[i].classList.remove('active-li');
+		
+		//calculate the difference between current location and section location
+		let diff = Math.abs(sectionsList[i].offsetTop - viewPortLocation);
+		if(diff < minmiumDifference)
+		{
+			minmiumDifference = diff;
+			index = i;
+		}
+	}
+	
+	//choose current displayed section to be active
+	sectionsList[index].classList.add('your-active-class');
+	myMenu.children[index].classList.add('active-li');
+}
 
 /**
  * End Helper Functions
@@ -44,7 +70,7 @@ let timerForScrolling = null;
 */
 
 // build the nav
-//menu sections is not huge is appending the children in the loop will not lead to a preformance issue
+//menu sections is not huge and appending the children in the loop will not lead to a preformance issue
 function createMenu(){
 	
 	
@@ -66,41 +92,11 @@ function createMenu(){
 }
 
 
-// Add class 'active' to section when near top of viewport
-function updateActiveSection(){
-	
-	//get cuurent location
-	let viewPortLocation = document.documentElement.scrollTop || document.body.scrollTop
-	
-	let activeIndex = 0;
-	let minmiumDifference = 10000;
-	
-	//first thing to do is to clear all sections
-	for(let i=0; i< sectionsList.length; i++){
-		sectionsList[i].classList.remove('your-active-class');
-		myMenu.children[i].classList.remove('active-li');
-		
-		//calculate the difference between current location and section location
-		let diff = Math.abs(sectionsList[i].offsetTop - viewPortLocation);
-		if(diff < minmiumDifference)
-		{
-			minmiumDifference = diff;
-			index = i;
-		}
-	}
-	
-	//choose current displayed section to be active
-	sectionsList[index].classList.add('your-active-class');
-	myMenu.children[index].classList.add('active-li');
-}
-
 // Scroll to anchor ID using scrollTO event
 
 function scrolling(){
 	//display menu while scrolling
    myMenu.style.display  = "block";
-   
- 
 
   updateActiveSection();
   
