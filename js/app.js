@@ -66,7 +66,8 @@ function createMenu(){
 // Add class 'active' to section when near top of viewport
 function updateActiveSection(){
 	
-	let loc = document.documentElement.scrollTop || document.body.scrollTop
+	//get cuurent location
+	let viewPortLocation = document.documentElement.scrollTop || document.body.scrollTop
 	
 	let activeIndex = 0;
 	let minmiumDifference = 10000;
@@ -74,31 +75,36 @@ function updateActiveSection(){
 	//first thing to do is to clear all sections
 	for(let i=0; i< sectionsList.length; i++){
 		sectionsList[i].classList.remove('your-active-class');
-		let diff = Math.abs(sectionsList[i].offsetTop - loc);
+		myMenu.children[i].classList.remove('active-li');
+		
+		//calculate the difference between current location and section location
+		let diff = Math.abs(sectionsList[i].offsetTop - viewPortLocation);
 		if(diff < minmiumDifference)
 		{
 			minmiumDifference = diff;
 			index = i;
 		}
 	}
-	console.log(index);
+	
+	//choose current displayed section to be active
 	sectionsList[index].classList.add('your-active-class');
+	myMenu.children[index].classList.add('active-li');
 }
 
 // Scroll to anchor ID using scrollTO event
 
-function showMenu(e){
+function showMenu(){
 	//display menu while scrolling
    myMenu.style.display  = "block";
 
-  
+  updateActiveSection();
    if(timerForScrolling !== null) {
         clearTimeout(timerForScrolling);        
     }
     timerForScrolling = setTimeout(function() {
 		//hide menu after timeout is finished
 		  myMenu.style.display = "none";
-			updateActiveSection();
+			
     }, 1000);
   
 }
@@ -113,6 +119,7 @@ function showMenu(e){
 
 createMenu();
 
+showMenu();
 // Set sections as active
 
 window.addEventListener('scroll', showMenu, false);
