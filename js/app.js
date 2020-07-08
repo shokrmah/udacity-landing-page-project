@@ -23,6 +23,9 @@ const myMenu = document.getElementById('navbar__list');
 //get all the sections I have
 const sectionsList = document.getElementsByTagName('section');
 
+//back to top button
+const backToTopButton = document.getElementById('backToTopButton');
+
 //this timer is used to close menu when scrolling is done
 let timerForScrolling = null;
 
@@ -93,21 +96,33 @@ function updateActiveSection(){
 
 // Scroll to anchor ID using scrollTO event
 
-function showMenu(){
+function scrolling(){
 	//display menu while scrolling
    myMenu.style.display  = "block";
+   
+ 
 
   updateActiveSection();
+  
+  
+  //if reached end of file then show the button to back to top
+   if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight)
+		  backToTopButton.style.display ="block";
+	else
+		backToTopButton.style.display ="none";
+
+  
    if(timerForScrolling !== null) {
         clearTimeout(timerForScrolling);        
     }
     timerForScrolling = setTimeout(function() {
 		//hide menu after timeout is finished
 		  myMenu.style.display = "none";
-			
-    }, 1000);
+		 
+    }, 2000);
   
 }
+
 
 /**
  * End Main Functions
@@ -119,8 +134,8 @@ function showMenu(){
 
 createMenu();
 
-showMenu();
+scrolling();
 // Set sections as active
 
-window.addEventListener('scroll', showMenu, false);
+window.addEventListener('scroll', scrolling, false);
 
