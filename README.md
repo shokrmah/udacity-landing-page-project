@@ -2,12 +2,12 @@
 
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [Description](#Description)
 
-## Instructions
+## Description
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+This is the landing page project for udacity professional web track.
 
-To get started, open `js/app.js` and start building out the app's functionality
+The page gives you the ability to navigate between sections and showing which one is active using ES6.
 
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+If a new section is added to the HTML file the page will still works fine with the new added section and all the events will still be working fine.
